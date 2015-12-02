@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class LocationDB extends SQLiteOpenHelper {
     /**
      * Version number of the database
      */
-    private static int DATABASE_VERSION = 1;
+    private static int DATABASE_VERSION = 2;
     public static final String LOC_ID = "_id";
     public static final String LOC_POSTAL_CODE = "postcode";
     public static final String LOC_LATITUDE = "lat";
@@ -56,6 +57,8 @@ public class LocationDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
 
     }
 
@@ -71,8 +74,6 @@ public class LocationDB extends SQLiteOpenHelper {
         ContentValues mNewValues = new ContentValues();
 
         //ContentValues values [] = new ContentValues[getLocationCount()];
-
-
         mNewValues.put(LOC_POSTAL_CODE, latlng.get_postcode());
         mNewValues.put(LOC_LATITUDE, latlng.get_lat());
         mNewValues.put(LOC_LONGITUDE, latlng.get_lng());
@@ -81,8 +82,9 @@ public class LocationDB extends SQLiteOpenHelper {
         mNewValues.put(LOC_TYPE, latlng.get_type());
 
         // Inserting RoW
-        db.insert(TABLE_NAME, null, mNewValues);
-        mNewValues.clear();
+       long rowId =  db.insert(TABLE_NAME, null, mNewValues);
+        Log.d("Inserted value",String.valueOf(rowId));
+       // mNewValues.clear();
         //break;
 
         // Closing database connection
@@ -121,12 +123,11 @@ public class LocationDB extends SQLiteOpenHelper {
 
     // Getting Location Count
     public int getLocationCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_NAME;
+        String countQuery = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         int numOfRows = cursor.getCount();
         cursor.close();
-        // return count
         return numOfRows;
     }
 
