@@ -28,7 +28,10 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
     private Button bFindRoute;
     Button btnCalendar, btnTimePicker;
     EditText txtDate, txtTime;
-    TextView tv_from, tv_to ,tv_travel_pref;
+    TextView tv_from, tv_to, tv_travel_pref;
+    // TravelData travelData;
+    TravelData travelData;
+
 
     // Variable for storing current date and time
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -55,7 +58,6 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
         bTo.setOnClickListener(this);
         bFindRoute.setOnClickListener(this);
         bTravelPref.setOnClickListener(this);
-
         // select Location Type
         Spinner locTypeSpinner = (Spinner) findViewById(R.id.loc_type);
 
@@ -144,7 +146,15 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
 
         if (view == bFindRoute) {
             Intent findRouteIntent = new Intent(this, RouteListActivity.class);
-            findRouteIntent.putExtra("From",);
+            String putFrom = travelData.getFrom();
+            findRouteIntent.putExtra("From", putFrom);
+            String putTo = travelData.getTo();
+            findRouteIntent.putExtra("To", putTo);
+            String putDate = txtDate.getText().toString();
+            findRouteIntent.putExtra("Date", putDate);
+            String puttime = txtTime.getText().toString();
+            findRouteIntent.putExtra("Time", puttime);
+            findRouteIntent.putExtra("TavelPref", travelData.getTavelPref());
             startActivity(findRouteIntent);
 
         }
@@ -171,8 +181,14 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
 
                 Bundle bundle = data.getExtras();
                 String fromName = bundle.getString("resultValue");
+                travelData = new TravelData(fromName, null, null, null);
+                travelData.setFrom(fromName);
+                //set the value of from location
+                // String res =  travelData.getFrom() ;
+                // Log.d("value","res");
                 tv_from = (TextView) findViewById(R.id.from);
-                tv_from.setText(fromName);//Set the result in textview
+                tv_from.setText(travelData.getFrom());//Set the result in textview
+
 
             }
 
@@ -181,8 +197,13 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
 
                 Bundle bundle = data.getExtras();
                 String toName = bundle.getString("resultValue");
+
+                travelData = new TravelData(null, toName, null, null);
+                travelData.setFrom(toName);
+                //set the value of to location
+                travelData.setTo(toName);
                 tv_to = (TextView) findViewById(R.id.to);
-                tv_to.setText(toName);//Set the result in textview
+                tv_to.setText(travelData.getTo());//Set the result in textview
 
             }
 
@@ -190,9 +211,11 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
             if (resultCode == Activity.RESULT_OK) {
 
                 Bundle bundle = data.getExtras();
-                String fromName = bundle.getString("resultValue");
+                String travelPref = bundle.getString("resultValue");
+                //set the value of from location
+                travelData.setTavelPref(travelPref);
                 tv_travel_pref = (TextView) findViewById(R.id.tv_travel_pref);
-                tv_travel_pref.setText(fromName);//Set the result in textview
+                tv_travel_pref.setText(travelPref);//Set the result in textview
 
 
             }

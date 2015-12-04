@@ -16,6 +16,7 @@ public class SelectLocationListview extends Activity implements AdapterView.OnIt
 
     ListView listView;
     String Title[] = {"London Eye", "Big Ben", "Westminister", "Chelsea", "Black Pool", "Wembley Stadium", "Emirates Stadium", "Tottenham"};
+    TravelData travelData ;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
