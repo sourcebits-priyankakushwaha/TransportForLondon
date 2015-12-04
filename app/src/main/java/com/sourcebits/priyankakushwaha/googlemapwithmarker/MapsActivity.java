@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -26,19 +27,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 @SuppressWarnings("ALL")
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     @SuppressWarnings("FieldCanBeLocal")
     private GoogleMap map;
     public LocationDB db = new LocationDB(this);
     private static String LOG_TAG = "MapsActivity";
-  //  private MapFragment mapFragment;
+
+    // intialize marker variable
+    private Marker m1, m2, m3, m4, m5, m6, m7, m8;
+    //  private MapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        MapFragment  mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         insertRows();
     }
@@ -64,25 +68,100 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        m1 = map.addMarker(new MarkerOptions()
+                .position(new LatLng(51.504981, -0.127262))
+                .title("HORSE GUARDS PARADE (SW1)"));
 
-        // find the count of the latitude and longitude
-        int count =8;
-        // Reading all contacts
+        m2 = map.addMarker(new MarkerOptions()
+                .position(new LatLng(51.501571, 0.005532))
+                .title("The O2"));
 
-        Log.d("Reading: ", "Reading all contacts..");
+        m3 = map.addMarker(new MarkerOptions()
+                .position(new LatLng(51.51772625174497, -0.14411509037017822))
+                .title("GRANGE LANGHAM COURT HOTEL"));
 
-        List<LatLongPlaces> locations = db.getAllLocations();
+        m4 = map.addMarker(new MarkerOptions()
+                .position(new LatLng(51.50816, 0.02712))
+                .title("BRITANNIA COLLEGE OF EXCELLENCE"));
 
-        for (LatLongPlaces loc : locations) {
-            String log = "Id: " + loc.get_id() + " ,Name: " + loc.get_title() + " ,address: " + loc.get_adrs();
-        }
+        m5 = map.addMarker(new MarkerOptions()
+                .position(new LatLng(51.53854140853689, -0.016543865203857422))
+                .title("OLYMPIC CAFE"));
 
-        // send array of the lat long postions
-       // Intent nextIntent = new Intent(this, SecondActivity.class);
+        m6 = map.addMarker(new MarkerOptions()
+                .position(new LatLng(51.51897, -0.1265))
+                .title("BRITISH MUSEUM"));
+
+        m7 = map.addMarker(new MarkerOptions()
+                .position(new LatLng(51.513897256014594, -0.0986623764038086))
+                .title("ST PAULS CATHEDRAL SCHOOL"));
+
+        m8 = map.addMarker(new MarkerOptions()
+                .position(new LatLng(51.508602, -0.076013))
+                .title("BANNATYNES HEALTH CLUB TOWER 42, CITY OF LONDON"));
+
+
+        //make marker clickable
+        map.setOnMarkerClickListener(this);
 
     }
 
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (marker.equals(m1)) {
+            Intent nextIntent = new Intent(this, SecondActivity.class);
+            nextIntent.putExtra("Location Name",m1.getTitle());//on click of marker value of title should pass to the next screen
+            startActivity(nextIntent);
+        }
+        if (marker.equals(m2)) {
+            Intent nextIntent = new Intent(this, SecondActivity.class);
+            nextIntent.putExtra("Location Name",m2.getTitle());//on click of marker value of title should pass to the next screen
+            startActivity(nextIntent);
+        }
+        if (marker.equals(m3)) {
+            Intent nextIntent = new Intent(this, SecondActivity.class);
+            nextIntent.putExtra("Location Name",m3.getTitle());//on click of marker value of title should pass to the next screen
+            startActivity(nextIntent);
+        }
+        if (marker.equals(m4)) {
+            Intent nextIntent = new Intent(this, SecondActivity.class);
+            nextIntent.putExtra("Location Name",m4.getTitle());//on click of marker value of title should pass to the next screen
+            startActivity(nextIntent);
+        }
+        if (marker.equals(m5)) {
+            Intent nextIntent = new Intent(this, SecondActivity.class);
+            nextIntent.putExtra("Location Name",m5.getTitle());//on click of marker value of title should pass to the next screen
+            startActivity(nextIntent);
+        }
+        if (marker.equals(m6)) {
+            Intent nextIntent = new Intent(this, SecondActivity.class);
+            nextIntent.putExtra("Location Name",m6.getTitle());//on click of marker value of title should pass to the next screen
+            startActivity(nextIntent);
+        }
+        if (marker.equals(m7)) {
+            Intent nextIntent = new Intent(this, SecondActivity.class);
+            nextIntent.putExtra("Location Name",m7.getTitle());//on click of marker value of title should pass to the next screen
+            startActivity(nextIntent);
+        }
+        if (marker.equals(m8)) {
+            Intent nextIntent = new Intent(this, SecondActivity.class);
+            nextIntent.putExtra("Location Name",m8.getTitle());//on click of marker value of title should pass to the next screen
+            startActivity(nextIntent);
+        }
+
+        return false;
+    }
 }
+
+
+
+
+
+
+
+
+
+
 
 
    /*   //customizing the marker using bitmapdescriptorfactory
