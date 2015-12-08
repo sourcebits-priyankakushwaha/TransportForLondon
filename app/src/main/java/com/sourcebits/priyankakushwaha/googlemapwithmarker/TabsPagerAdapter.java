@@ -1,6 +1,4 @@
 package com.sourcebits.priyankakushwaha.googlemapwithmarker;
-
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,13 +15,13 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         switch (index) {
             case 0:
                 // Top Rated fragment activity
-              //  return new MapsActivity();
+                return new MapsActivity();
             case 1:
                 // Games fragment activity
-            //    return new GamesFragment();
+               return new TubeStatusMainActivity();
             case 2:
                 // Movies fragment activity
-           //     return new MoviesFragment();
+              //return new MoviesFragment();
         }
 
         return null;

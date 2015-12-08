@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.support.v4.app.Fragment;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,11 +29,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 @SuppressWarnings("ALL")
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapsActivity extends MapFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     @SuppressWarnings("FieldCanBeLocal")
     private GoogleMap map;
-    public LocationDB db = new LocationDB(this);
+    public LocationDB db = new LocationDB(getActivity());
     private static String LOG_TAG = "MapsActivity";
 
     // intialize marker variable
@@ -39,13 +41,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //  private MapFragment mapFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootview = (LinearLayout)inflater.inflate(R.layout.activity_maps, container, false);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        return rootview;
+    }
+
+ /*    @Override
+   protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         insertRows();
-    }
+    } */
 
     private void insertRows() {
         /**
@@ -109,42 +120,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (marker.equals(m1)) {
-            Intent nextIntent = new Intent(this, SecondActivity.class);
+            Intent nextIntent = new Intent(getActivity(), SecondActivity.class);
             nextIntent.putExtra("Location Name",m1.getTitle());//on click of marker value of title should pass to the next screen
             startActivity(nextIntent);
         }
         if (marker.equals(m2)) {
-            Intent nextIntent = new Intent(this, SecondActivity.class);
+            Intent nextIntent = new Intent(getActivity(), SecondActivity.class);
             nextIntent.putExtra("Location Name",m2.getTitle());//on click of marker value of title should pass to the next screen
             startActivity(nextIntent);
         }
         if (marker.equals(m3)) {
-            Intent nextIntent = new Intent(this, SecondActivity.class);
+            Intent nextIntent = new Intent(getActivity(), SecondActivity.class);
             nextIntent.putExtra("Location Name",m3.getTitle());//on click of marker value of title should pass to the next screen
             startActivity(nextIntent);
         }
         if (marker.equals(m4)) {
-            Intent nextIntent = new Intent(this, SecondActivity.class);
+            Intent nextIntent = new Intent(getActivity(), SecondActivity.class);
             nextIntent.putExtra("Location Name",m4.getTitle());//on click of marker value of title should pass to the next screen
             startActivity(nextIntent);
         }
         if (marker.equals(m5)) {
-            Intent nextIntent = new Intent(this, SecondActivity.class);
+            Intent nextIntent = new Intent(getActivity(), SecondActivity.class);
             nextIntent.putExtra("Location Name",m5.getTitle());//on click of marker value of title should pass to the next screen
             startActivity(nextIntent);
         }
         if (marker.equals(m6)) {
-            Intent nextIntent = new Intent(this, SecondActivity.class);
+            Intent nextIntent = new Intent(getActivity(), SecondActivity.class);
             nextIntent.putExtra("Location Name",m6.getTitle());//on click of marker value of title should pass to the next screen
             startActivity(nextIntent);
         }
         if (marker.equals(m7)) {
-            Intent nextIntent = new Intent(this, SecondActivity.class);
+            Intent nextIntent = new Intent(getActivity(), SecondActivity.class);
             nextIntent.putExtra("Location Name",m7.getTitle());//on click of marker value of title should pass to the next screen
             startActivity(nextIntent);
         }
         if (marker.equals(m8)) {
-            Intent nextIntent = new Intent(this, SecondActivity.class);
+            Intent nextIntent = new Intent(getActivity(), SecondActivity.class);
             nextIntent.putExtra("Location Name",m8.getTitle());//on click of marker value of title should pass to the next screen
             startActivity(nextIntent);
         }

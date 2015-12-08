@@ -41,8 +41,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
+        <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.TabLayoutActivity" />
+                <activity
             android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.SecondActivity" />
