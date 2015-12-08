@@ -33,7 +33,7 @@
         <!--android:value="AIzaSyA2XOGXYJX2jKjFvi4Atpvs7enGucNv-l8" />-->
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".Splash"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,6 +41,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.MapsActivity"
+            android:label="@string/title_activity_maps" />
         <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.SecondActivity" />
         <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.SelectLocationListview" />
         <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.RouteListActivity" />

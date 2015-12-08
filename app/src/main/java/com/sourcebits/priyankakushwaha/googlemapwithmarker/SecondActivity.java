@@ -44,7 +44,7 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
         bFrom = (Button) findViewById(R.id.btn_from);
         bTo = (Button) findViewById(R.id.btn_to);
         bFindRoute = (Button) findViewById(R.id.btn_find_route);
-        bTravelPref = (Button) findViewById(R.id.btn_travel_pref);
+        //bTravelPref = (Button) findViewById(R.id.btn_travel_pref);
 
         btnCalendar = (Button) findViewById(R.id.btnCalendar);
         btnTimePicker = (Button) findViewById(R.id.btnTimePicker);
@@ -57,7 +57,7 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
         bFrom.setOnClickListener(this);
         bTo.setOnClickListener(this);
         bFindRoute.setOnClickListener(this);
-        bTravelPref.setOnClickListener(this);
+       // bTravelPref.setOnClickListener(this);
         // select Location Type
         Spinner locTypeSpinner = (Spinner) findViewById(R.id.loc_type);
 
@@ -137,12 +137,12 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
             tpd.show();
         }
 
-        if (view == bTravelPref) {
+      /* if (view == bTravelPref) {
 
             Intent TravelPrefIntent = new Intent(this, TravelPreferenceActivity.class);
             startActivityForResult(TravelPrefIntent, 2);
 
-        }
+        }*/
 
         if (view == bFindRoute) {
             Intent findRouteIntent = new Intent(this, RouteListActivity.class);
@@ -154,7 +154,7 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
             findRouteIntent.putExtra("Date", putDate);
             String puttime = txtTime.getText().toString();
             findRouteIntent.putExtra("Time", puttime);
-            findRouteIntent.putExtra("TavelPref", travelData.getTavelPref());
+           // findRouteIntent.putExtra("TavelPref", travelData.getTavelPref());
             startActivity(findRouteIntent);
 
         }
@@ -207,7 +207,7 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
 
             }
 
-        } else if (requestCode == 2) {
+        } /*else if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
 
                 Bundle bundle = data.getExtras();
@@ -220,6 +220,6 @@ public class SecondActivity extends Activity implements View.OnClickListener, Ad
 
             }
 
-        }
+        }*/
     }
 }
