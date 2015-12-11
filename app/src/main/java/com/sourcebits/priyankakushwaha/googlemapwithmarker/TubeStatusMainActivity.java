@@ -9,9 +9,11 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -23,17 +25,30 @@ public class TubeStatusMainActivity extends android.support.v4.app.Fragment {
     private ListView lineList;
     TubeAdapter tubeadapter;
     LineStatus obj;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
+    Button btn_refresh ;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = (RelativeLayout) inflater.inflate(R.layout.tube_status_activity_main, container, false);
-        new GetTubeStatusTask(this, url).execute();
+       // new GetTubeStatusTask(this, url).execute();
+
+        CheckConnectivity check = new CheckConnectivity();
+        Boolean conn = check.checkNow(getContext());
+        if(conn == true){
+            Toast.makeText(getContext(), "You have Internet Connection",Toast.LENGTH_LONG).show();
+        }
+        else{
+            //Send a warning message to the user
+            Toast.makeText(getContext(), "You Do not have Internet Connection",Toast.LENGTH_LONG).show();
+        }
+        btn_refresh = (Button)rootview.findViewById(R.id.btn_refresh);
+        btn_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GetTubeStatusTask(TubeStatusMainActivity.this, url).execute();
+            }
+        });
         return rootview;
     }
 
@@ -42,6 +57,7 @@ public class TubeStatusMainActivity extends android.support.v4.app.Fragment {
         setContentView(R.layout.tube_status_activity_main);
         new GetTubeStatusTask(this, url).execute();
     }*/
+
 
     public void callBackData( List<LineStatus> resultValue) {
 

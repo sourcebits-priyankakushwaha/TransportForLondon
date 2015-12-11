@@ -13,7 +13,9 @@ public class Departure extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootview =   (RelativeLayout) inflater.inflate(R.layout.departure, container, false);
+
+        View rootview;
+        rootview =  inflater.inflate(R.layout.departure, container, false);
         return rootview ;
     }
 }

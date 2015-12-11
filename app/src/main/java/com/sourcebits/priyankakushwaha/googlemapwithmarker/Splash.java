@@ -9,7 +9,7 @@ import android.view.Menu;
 public class Splash extends Activity
 
 {
-    private final int SPLASH_DISPLAY_LENGTH = 10000;
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
 
     @Override
     public void onCreate(Bundle icicle) {

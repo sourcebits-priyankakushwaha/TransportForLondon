@@ -1,25 +1,26 @@
 package com.sourcebits.priyankakushwaha.googlemapwithmarker;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class GetRouteListInfoTask  extends AsyncTask<String[], Void, List<RouteListModelClass>> {
     private RouteListActivity activity;
     private String url;
-   // private XmlPullParserFactory xmlFactoryObject;
+    // private XmlPullParserFactory xmlFactoryObject;
     private ProgressDialog pDialog;
 
     public GetRouteListInfoTask(RouteListActivity activity, String url) {
@@ -39,6 +40,9 @@ public class GetRouteListInfoTask  extends AsyncTask<String[], Void, List<RouteL
 
     @Override
     protected List<RouteListModelClass> doInBackground(String[]... params) {
+        RouteListModelClass routeObj;
+        List<RouteListModelClass> routeList;
+        routeList = new ArrayList<RouteListModelClass>();
         try {
             URL url = new URL(this.url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -47,23 +51,50 @@ public class GetRouteListInfoTask  extends AsyncTask<String[], Void, List<RouteL
             connection.setRequestMethod("GET");
             connection.setDoInput(true);
             connection.connect();
-            InputStream stream = connection.getInputStream();
-            List<RouteListModelClass> routeListResult = parseJSON();
-            stream.close();
-            return routeListResult;
+            BufferedReader bufferedReader =
+                    new BufferedReader(new InputStreamReader(
+                            connection.getInputStream()));
 
-        } catch (Exception e) {
+            // List<RouteListModelClass> routeListResult = parseJSON();
+            String next ;
+            routeObj = new RouteListModelClass();
+            StringBuilder builder = new StringBuilder();
+//            while ((next = bufferedReader.readLine()) != null){
+//                builder.append(next).append("\n");
+//            }
+            while ((next = bufferedReader.readLine()) != null){
+                builder.append(next).append("\n");
+            }
+
+            JSONObject jsonObj = new JSONObject(builder.toString());
+            JSONObject rootObj = jsonObj.getJSONObject("journeys");
+            JSONArray journeyArray  = rootObj.getJSONArray("journeys");
+            for (int i = 0; i < journeyArray.length(); i++)
+            {
+                JSONObject jsonChildNode = journeyArray.getJSONObject(i);
+
+                /******* Fetch node values **********/
+                int durationInt = Integer.parseInt(jsonChildNode.optString("duration").toString());
+                String 	duration= String.valueOf(durationInt);
+                routeObj.setDuration(duration);
+                //String start = jsonObj1.getString("startDateTime");
+                //routeObj.setDuration(start);
+                // String end = jsonObj1.getString("arrivalDateTime");
+                routeList.add(routeObj);
+            }
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-            Log.e("AsyncTask", "exception");
-            return null;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+        return routeList;
     }
 
-    private List<RouteListModelClass> parseJSON() {
-
-
-        return null;
-    }
 
     @Override
     protected void onPostExecute(List<RouteListModelClass> result) {

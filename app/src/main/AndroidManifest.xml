@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sourcebits.priyankakushwaha.googlemapwithmarker">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -34,7 +37,8 @@
 
         <activity
             android:name=".Splash"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_maps"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,9 +46,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.TabLayoutActivity" />
-                <activity
-            android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.MapsActivity"
-            android:label="@string/title_activity_maps" />
         <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.SecondActivity" />
         <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.SelectLocationListview" />
         <activity android:name="com.sourcebits.priyankakushwaha.googlemapwithmarker.RouteListActivity" />

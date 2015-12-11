@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetTubeStatusTask extends AsyncTask<String[], Void, List<LineStatus>> {
-    private TubeStatusMainActivity activity ;
+    private TubeStatusMainActivity activity;
     private String url;
     private XmlPullParserFactory xmlFactoryObject;
     private ProgressDialog pDialog;
@@ -111,19 +111,15 @@ public class GetTubeStatusTask extends AsyncTask<String[], Void, List<LineStatus
 
                     case XmlPullParser.END_TAG:
                         if (tagname.equalsIgnoreCase("LineStatus")) {
-
                             lineStatus.add(curLineStatus);
-
                         } else if (tagname.equalsIgnoreCase("Line")) {
-                           lineName = xpp.getAttributeValue(null, "Name");
+                            lineName = xpp.getAttributeValue(null, "Name");
                             curLineStatus.setLineName(lineName);
-
-
                         } else if (tagname.equalsIgnoreCase("Status")) {
-                             statusDesc = xpp.getAttributeValue(null, "Description");
+                            statusDesc = xpp.getAttributeValue(null, "Description");
                             curLineStatus.setStatusDescription(statusDesc);
                         } else if (tagname.equalsIgnoreCase("LineStatus")) {
-                           statusDetail = xpp.getAttributeValue(null, "StatusDetails");
+                            statusDetail = xpp.getAttributeValue(null, "StatusDetails");
                             curLineStatus.setStatusDetails(statusDetail);
                         }
                         break;

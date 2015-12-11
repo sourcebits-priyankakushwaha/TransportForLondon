@@ -3,10 +3,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-    public TabsPagerAdapter(FragmentManager fm) {
+    private SupportMapFragment mSupportMapFragment;
+    private OnMapReadyCallback mOnMapReadyCallback ;
+
+    public TabsPagerAdapter(FragmentManager fm, OnMapReadyCallback onMapReadyCallback) {
         super(fm);
+        mOnMapReadyCallback = onMapReadyCallback;
     }
 
     @Override
@@ -14,14 +21,17 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 
         switch (index) {
             case 0:
-                // Top Rated fragment activity
-                return new MapsActivity();
+                //Maps fragment activity
+                return new TubeStatusMainActivity();
+
             case 1:
-                // Games fragment activity
-               return new TubeStatusMainActivity();
+                // Tube fragment activity
+                mSupportMapFragment =  SupportMapFragment.newInstance();
+                mSupportMapFragment.getMapAsync(mOnMapReadyCallback);
+                return mSupportMapFragment;
             case 2:
-                // Movies fragment activity
-              //return new MoviesFragment();
+                // Departure fragment activity
+              return new Departure();
         }
 
         return null;
